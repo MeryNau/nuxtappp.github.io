@@ -1,22 +1,21 @@
-name: Build and Deploy
+name: Deploy Nuxt.js App
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Node.js (optional)
+        uses: actions/setup-node@v3
         with:
-          node-version: 'v20.10.0'
+          cache: 'npm'
+          node-version: 'v16.x'
 
       - name: Install dependencies
         run: yarn install
@@ -24,12 +23,13 @@ jobs:
       - name: Build project
         run: yarn run build
 
-      -name: generate project
+      - name: Generate static content (optional)
         run: yarn run generate
 
       - name: Set environment variable
         run: echo "NUXT_PUBLIC_BASE_URL=${{ secrets.NUXT_PUBLIC_BASE_URL }}" >> .env
 
-      - name: Deploy to hosting
+      - name: Deploy to external hosting
         run: rsync -avz --delete dist/ user@host:/path/to/destination
-          # Hier fügst du den Befehl ein, um deine Website zu deployen, z.B. rsync, FTP usw.
+        env:
+          NUXT_DEPLOY_TOKEN: ${{ secrets.NUXT_DEPLOY_TOKEN }}  # Use the PAT instead of SSH_KEY
