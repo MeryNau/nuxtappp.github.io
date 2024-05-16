@@ -16,13 +16,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: 'v20.10.0'
 
       - name: Install dependencies
         run: yarn install
 
       - name: Build project
-        run: yarn run build
+        run: yarn run generate
 
       - name: Deploy to hosting
         run: |
