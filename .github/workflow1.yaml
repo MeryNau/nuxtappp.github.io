@@ -37,7 +37,6 @@ jobs:
           BRANCH: main  # Deploy to the gh-pages branch by default
 
       - name: Deploy to external hosting (optional)
-        run: rsync -avz --delete dist/ user@host:/path/to/destination
         env:  NUXT_PUBLIC_BASE_URL: ${{ secrets.NUXT_PUBLIC_BASE_URL }}
           # Replace with your actual deployment command and environment variables
           # (e.g., NUXT_DEPLOY_TOKEN for a personal access token)
