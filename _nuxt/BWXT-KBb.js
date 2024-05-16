@@ -1,0 +1,1 @@
+import{d as n,u as o,z as t,o as s,c as r,a as c,b as m}from"./BFoAKb-g.js";const d=n({__name:"[Name]",setup(u){const e=o();return(p,_)=>{const a=t("exa");return s(),r("div",null,[c(a,{name:m(e).params.Name.toString()},null,8,["name"])])}}});export{d as default};
