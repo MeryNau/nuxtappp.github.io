@@ -1,0 +1,33 @@
+name: Build and Deploy Nuxt.js App
+
+on:
+  push:
+    branches: [ main ]  # Trigger on pushes to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest  # Run on Windows machines
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Checkout repository code (latest version)
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3  # Set up Node.js if not pre-installed (latest version)
+        with:
+          node-version: '14.x'  # Adjust Node.js version based on project requirements
+
+      - name: Install dependencies
+        run: yarn install  # Install dependencies using Yarn
+
+      - name: Build project
+        run: yarn run build  # Build the Nuxt.js application
+
+      - name: Set environment variable
+        run: echo "NUXT_PUBLIC_BASE_URL=http://10.1.108.45:8080/bline/v1" >> .env
+
+      - name: Deploy to external hosting (optional)
+        run: rsync -avz --delete dist/ user@host:/path/to/destination
+        env:
+          NUXT_PUBLIC_BASE_URL: http://localhost:8080/bline/v1
+          # Replace "user@host:/path/to/destination" with your actual deployment command and path
