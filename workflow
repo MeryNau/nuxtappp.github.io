@@ -22,11 +22,14 @@ jobs:
         run: yarn install
 
       - name: Build project
+        run: yarn run build
+
+      -name: generate project
         run: yarn run generate
 
       - name: Set environment variable
         run: echo "NUXT_PUBLIC_BASE_URL=${{ secrets.NUXT_PUBLIC_BASE_URL }}" >> .env
 
       - name: Deploy to hosting
-        run: ./dist
+        run: rsync -avz --delete dist/ user@host:/path/to/destination
           # Hier fügst du den Befehl ein, um deine Website zu deployen, z.B. rsync, FTP usw.
