@@ -28,5 +28,5 @@ jobs:
         run: echo "NUXT_PUBLIC_BASE_URL=${{ secrets.NUXT_PUBLIC_BASE_URL }}" >> .env
 
       - name: Deploy to hosting
-        run: |
+        run: ./dist
           # Hier fügst du den Befehl ein, um deine Website zu deployen, z.B. rsync, FTP usw.
